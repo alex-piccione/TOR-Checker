@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+
 using Flurl.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace TORChecker
 {
@@ -15,7 +17,10 @@ namespace TORChecker
         public Checker(Settings settings)
         {
             this.settings = settings;
+
+            VerifyIPList(settings);
         }
+
 
         public bool IsUsingTor(string ipAddress)
         {
@@ -24,6 +29,23 @@ namespace TORChecker
             return ipList.Contains(ipAddress);
         }
 
+
+        private void VerifyIPList(Settings settings)
+        {
+            if (settings.IPListCsvFileUrl == null)
+                settings.IPListCsvFileUrl = Settings.DefaultIPListCsvUrl;
+            //{
+            //if (File.Exists("configuration.json"))
+            //{
+            //    var configuration = new ConfigurationBuilder().AddJsonFile("configuration.json").Build();
+            //    var list = configuration.GetSection("TOR Checker");
+            //    if (list.GetChildren("IP list URL").Value != null)
+            //    {
+
+                //    }
+                //}
+                //}
+        }
 
         private void LoadIPLIst()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using NUnit.Framework;
+using Flurl.Http;
 
 namespace TORChecker.Test
 {
@@ -11,17 +12,19 @@ namespace TORChecker.Test
     public class CheckerTest
     {
 
-        [Test]
-        public void Check__should__return_True()
+        [TestCase("https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv")]
+        [TestCase(null)]
+        public void Check__should__return_True(string ipListCsvUrl)
         {
-            // get a TOR exit node from this list: https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv
-            var ipAddress = "5.2.77.146";
             var settings = new Settings();
-            settings.IPListCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
-
-            // execute
+            if(ipListCsvUrl != null)
+                settings.IPListCsvFileUrl = ipListCsvUrl;
+                        
             var checker = new Checker(settings);
 
+            var ipAddress = GetIpAddressFromList(Settings.DefaultIPListCsvUrl);
+
+            // execute
             var result = checker.IsUsingTor(ipAddress);
 
             Assert.IsTrue(result);
@@ -30,7 +33,6 @@ namespace TORChecker.Test
         [Test]
         public void Check__should__return_False()
         {
-            // get my current IP
             var ipAddress = "1.1.1.1";
             var settings = new Settings();
             settings.IPListCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
@@ -41,6 +43,15 @@ namespace TORChecker.Test
             var result = checker.IsUsingTor(ipAddress);
 
             Assert.IsFalse(result);
+        }
+
+
+
+        private string GetIpAddressFromList(string ipListCsvUrl)
+        {
+            var list = ipListCsvUrl.GetStringAsync().Result.Substring(0, 100);
+            var ip = list.Split('\n')[0];
+            return ip;
         }
     }
 }

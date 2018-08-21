@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 
 using Flurl.Http;
-using Microsoft.Extensions.Configuration;
 
 namespace TORChecker
 {
@@ -34,17 +33,6 @@ namespace TORChecker
         {
             if (settings.IPListCsvFileUrl == null)
                 settings.IPListCsvFileUrl = Settings.DefaultIPListCsvUrl;
-            //{
-            //if (File.Exists("configuration.json"))
-            //{
-            //    var configuration = new ConfigurationBuilder().AddJsonFile("configuration.json").Build();
-            //    var list = configuration.GetSection("TOR Checker");
-            //    if (list.GetChildren("IP list URL").Value != null)
-            //    {
-
-                //    }
-                //}
-                //}
         }
 
         private void LoadIPLIst()
@@ -82,7 +70,7 @@ namespace TORChecker
             }
 
             if (ipList.Count == 0)
-                throw new Exception("Fail to load or process CSV data0");
+                throw new Exception("Fail to load or process CSV data.");
         }
     }
 }

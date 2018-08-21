@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <id>TORChecker</id>
-    <version>0.1</version>
-    <title>TOR Checker</title>
-    <authors>Alessandro Piccione</authors>
-    <owners>Alessandro Piccione</owners>
-    <licenseUrl></licenseUrl>
-    <projectUrl></projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Try to reveal if a given IP address is a TOR exit node.</description>
-    <summary>It maintains an internal list tht can be automatically updated from different sources.
+	<metadata>
+		<id>TORChecker</id>
+		<version>0.1</version>
+		<title>TOR Checker</title>
+		<authors>Alessandro Piccione</authors>
+		<owners>Alessandro Piccione</owners>
+		<licenseUrl></licenseUrl>
+		<projectUrl></projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Try to reveal if a given IP address is a TOR exit node.</description>
+		<summary>It maintains an internal list tht can be automatically updated from different sources.
 	Expose a facility to check an IP address against this list and calling some services in realtime.</summary>
 	<releaseNotes />
-    <copyright />
-    <language>en-US</language>
-    <tags>tor security</tags>
-  </metadata>
+		<copyright />
+		<language>en-US</language>
+		<tags>tor security</tags>
+	</metadata>
 </package>

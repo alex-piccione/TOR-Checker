@@ -19,6 +19,7 @@ It use a official list obtained from blutmagie.de.</Description>
 
   <ItemGroup>
     <PackageReference Include="Flurl.Http" Version="2.3.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
   </ItemGroup>
 
 </Project>

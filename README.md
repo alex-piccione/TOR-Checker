@@ -4,6 +4,8 @@ Check if an IP is a TOR exit node.
 
 It use the updated list from **blutmagie.de**.
 
+Another list is here: https://check.torproject.org/exit-addresses.
+
 
 
 

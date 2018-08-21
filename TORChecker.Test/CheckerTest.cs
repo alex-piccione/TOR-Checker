@@ -15,10 +15,12 @@ namespace TORChecker.Test
         public void Check__should__return_True()
         {
             // get a TOR exit node from this list: https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv
-            var ipAddress = "5.9.195.140";
+            var ipAddress = "5.2.77.146";
+            var settings = new Settings();
+            settings.IPListCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
 
             // execute
-            var checker = new Checker();
+            var checker = new Checker(settings);
 
             var result = checker.IsUsingTor(ipAddress);
 
@@ -29,10 +31,12 @@ namespace TORChecker.Test
         public void Check__should__return_False()
         {
             // get my current IP
-            var ipAddress = "83.244.202.4";
+            var ipAddress = "1.1.1.1";
+            var settings = new Settings();
+            settings.IPListCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
 
             // execute
-            var checker = new Checker();
+            var checker = new Checker(settings);
 
             var result = checker.IsUsingTor(ipAddress);
 

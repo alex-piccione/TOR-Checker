@@ -330,3 +330,5 @@ ASALocalRun/
 .mfractor/
 
 NuGet_API_key\.txt
+
+nuget\.exe

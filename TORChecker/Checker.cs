@@ -17,7 +17,7 @@ namespace TORChecker
         {
             this.settings = settings;
 
-            VerifyIPList(settings);
+            VerifySettingst(settings);
         }
 
 
@@ -29,10 +29,10 @@ namespace TORChecker
         }
 
 
-        private void VerifyIPList(Settings settings)
+        private void VerifySettingst(Settings settings)
         {
-            if (settings.IPListCsvFileUrl == null)
-                settings.IPListCsvFileUrl = Settings.DefaultIPListCsvUrl;
+            if (settings.IPListCsvFileUrl == null) settings.IPListCsvFileUrl = Settings.DefaultIPListCsvUrl;
+            if (settings.LoadCsvRetry == 0) settings.LoadCsvRetry = Settings.DefaultLoadCsvRetry;
         }
 
         private void LoadIPLIst()
@@ -43,7 +43,7 @@ namespace TORChecker
             Exception latException = null;
 
             int retry = 0;
-            while (csvData == null && retry++ < 3)
+            while (csvData == null && retry++ < settings.LoadCsvRetry)
             {
                 try
                 {

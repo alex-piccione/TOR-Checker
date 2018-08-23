@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using Flurl.Http;
 
-namespace TORChecker.Test
+namespace TorChecker.Test
 {
 
     [TestFixture]
@@ -16,13 +16,13 @@ namespace TORChecker.Test
         [TestCase(null)]
         public void Check__should__return_True(string ipListCsvUrl)
         {
-            var settings = new Settings();
+            var settings = new TorChecker.Settings();
             if(ipListCsvUrl != null)
                 settings.IPListCsvFileUrl = ipListCsvUrl;
                         
-            var checker = new Checker(settings);
+            var checker = new TorChecker.Checker(settings);
 
-            var ipAddress = GetIpAddressFromList(Settings.DefaultIPListCsvUrl);
+            var ipAddress = GetIpAddressFromList(TorChecker.Settings.DefaultIPListCsvUrl);
 
             // execute
             var result = checker.IsUsingTor(ipAddress);
@@ -34,11 +34,11 @@ namespace TORChecker.Test
         public void Check__should__return_False()
         {
             var ipAddress = "1.1.1.1";
-            var settings = new Settings();
+            var settings = new TorChecker.Settings();
             settings.IPListCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
 
             // execute
-            var checker = new Checker(settings);
+            var checker = new TorChecker.Checker(settings);
 
             var result = checker.IsUsingTor(ipAddress);
 

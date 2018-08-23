@@ -8,9 +8,32 @@ Another list is here: https://check.torproject.org/exit-addresses.
 
 
 
+## Usage
+
+See the Example.ExampleOfUsage file.
+
+### Occasional search
+```C#
+// The checker does not make any update in background and execute the "check" on demand
+var checker = new TorChecker.Checker();
+
+var clientIsUsingTor = checker.IsUsingTor("1.1.1.1");
+```
+
+
+### Backgroud update 
+```C#
+// Set it to autoupdate the list every "settings.DefaultBacgroundUpdateIntervalMilliseconds" minutes
+var settings = new TorChecker.Settings { BackgroundUpdateEnabled = true };
+var checker = new TorChecker.Checker(settings);
+
+var clientIsUsingTor = checker.IsUsingTor("1.1.1.1");
+```
+
+
 
 ## NuGet package
 
-The NuGet package is named [TORChecker](https://www.nuget.org/packages/TORChecker/).
+The NuGet package is named [TOR Checker](https://www.nuget.org/packages/TORChecker/).
 
 The file "Publish package.bat" is part of the solution but it is only usable with a private key that is obviously not included in the repository.

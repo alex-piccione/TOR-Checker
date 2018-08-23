@@ -4,6 +4,8 @@
     <TargetFrameworks>netcoreapp2.1;net47</TargetFrameworks>
 
     <IsPackable>false</IsPackable>
+
+    <AssemblyName>Alex75.TorChecker.Test</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

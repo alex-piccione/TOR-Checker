@@ -1,4 +1,4 @@
-﻿namespace TORChecker
+﻿namespace TorChecker
 {
     public interface IChecker
     {

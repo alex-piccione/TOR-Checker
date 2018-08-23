@@ -4,7 +4,7 @@ using System.IO;
 using System.Timers;
 using Flurl.Http;
 
-namespace TORChecker
+namespace TorChecker
 {
     public class Checker : IChecker
     {
@@ -20,13 +20,18 @@ namespace TORChecker
         public DateTime LastUpdate { get; set; }
 
 
+        public Checker()
+        {
+            this.settings = new Settings();
+        }
+
         public Checker(Settings settings)
         {
             this.settings = settings;
 
-            VerifySettingst(settings);
+            VerifySettings(settings);
 
-            if (settings.BacgroundUpdateEnabled)
+            if (settings.BackgroundUpdateEnabled)
                 StartBackgroundUpdateProcess();
         }
 
@@ -38,23 +43,22 @@ namespace TORChecker
                 {
                     LoadIPLIst();
                 }
-            
 
             return ipList.Contains(ipAddress);
         }
 
 
-        private void VerifySettingst(Settings settings)
+        private void VerifySettings(Settings settings)
         {
             if (settings.IPListCsvFileUrl == null) settings.IPListCsvFileUrl = Settings.DefaultIPListCsvUrl;
             if (settings.LoadCsvRetry == 0) settings.LoadCsvRetry = Settings.DefaultLoadCsvRetry;
-            if (settings.BacgroundUpdateEnabled && settings.BacgroundUpdateInterval == null)
-                settings.BacgroundUpdateInterval = TimeSpan.FromMilliseconds(Settings.DefaultBacgroundUpdateIntervalMilliseconds);
+            if (settings.BackgroundUpdateEnabled && settings.BackgroundUpdateInterval == default(TimeSpan))
+                settings.BackgroundUpdateInterval = TimeSpan.FromMilliseconds(Settings.DefaultBackgroundUpdateIntervalMilliseconds);
         }
 
         private void StartBackgroundUpdateProcess()
         {
-            timer = new Timer(settings.BacgroundUpdateInterval.TotalMilliseconds);
+            timer = new Timer(settings.BackgroundUpdateInterval.TotalMilliseconds);
             timer.Elapsed += RunBackgroundUpdate;
             timer.AutoReset = true;
             timer.Start();

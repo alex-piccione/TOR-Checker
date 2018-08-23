@@ -1,25 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TORChecker
+namespace Example
 {
     public class ExampleOfUsage
     {
 
-        public void MyMethod()
+        public void Example_1()
         {
-            // Initialize
-
-            // Set it to autoupdate the list every "settings.DefaultBacgroundUpdateIntervalMilliseconds" minutes
-            var settings = new Settings { BacgroundUpdateEnabled = true };            
-            var checker = new Checker(settings);
+            // The checker does not make any update in background and execute the "check" on demand
+            var checker = new TorChecker.Checker();
 
 
             // Use
             var clientIsUsingTor = checker.IsUsingTor("1.1.1.1");
+        }
 
-            // it raise an Exception if fail
+
+        public void Example_2()
+        {
+            // Set it to autoupdate the list every "settings.DefaultBacgroundUpdateIntervalMilliseconds" minutes
+            var settings = new TorChecker.Settings { BackgroundUpdateEnabled = true };
+            var checker = new TorChecker.Checker(settings);
+
+
+            // Use
+            var clientIsUsingTor = checker.IsUsingTor("1.1.1.1");
         }
 
 

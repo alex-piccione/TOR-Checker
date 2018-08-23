@@ -1,12 +1,17 @@
 ﻿using System;
 
-namespace TORChecker
+namespace TorChecker
 {
     public class Settings
     {
         public const string DefaultIPListCsvUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
         public const ushort DefaultLoadCsvRetry = 5;
-        public const uint DefaultBacgroundUpdateIntervalMilliseconds = 1000 * 60 * 10; // 10 minutes
+        public const uint DefaultBackgroundUpdateIntervalMilliseconds = 1000 * 60 * 10; // 10 minutes
+
+  
+        public Settings () {
+            BackgroundUpdateEnabled = true;
+        }
 
         /// <summary>
         /// URL of the CSV file with IP list.
@@ -23,11 +28,11 @@ namespace TORChecker
         /// <summary>
         /// Specify if a background update repeated process should be run.
         /// </summary>
-        public bool BacgroundUpdateEnabled { get; set; }
+        public bool BackgroundUpdateEnabled { get; set; }
 
         /// <summary>
         /// Specify the interval for the background update repeated process, when enabled.
         /// </summary>
-        public TimeSpan BacgroundUpdateInterval { get; internal set; }
+        public TimeSpan BackgroundUpdateInterval { get; set; }
     }
 }

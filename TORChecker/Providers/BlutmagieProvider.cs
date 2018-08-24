@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Flurl.Http;
 
+[assembly: InternalsVisibleTo("Alex75.TorChecker.Test")]
 namespace TorChecker.Providers
 {
     internal class BlutmagieProvider : IAddressesProvider

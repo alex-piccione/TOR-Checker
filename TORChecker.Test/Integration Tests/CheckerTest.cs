@@ -5,7 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using Flurl.Http;
 
-namespace TorChecker.Test
+namespace TorChecker.Test.Integration_Tests
 {
 
     [TestFixture]

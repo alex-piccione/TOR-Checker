@@ -28,10 +28,9 @@ namespace TorChecker
         {
             settings = new Settings();
 
-            providers = new IAddressesProvider[] {
-                new BlutmagieProvider(settings.BlutmagieCsvFileUrl, settings.ProviderRetryLimit)
-            };
+            InitializeProvidsers();
         }
+
 
         public Checker(Settings settings)
         {
@@ -41,7 +40,10 @@ namespace TorChecker
 
             if (settings.BackgroundUpdateEnabled)
                 StartBackgroundUpdateProcess();
+
+            InitializeProvidsers();
         }
+
 
 
         public bool IsUsingTor(string ipAddress)
@@ -62,6 +64,14 @@ namespace TorChecker
             if (settings.ProviderRetryLimit == 0) settings.ProviderRetryLimit = Settings.DefaultProviderRetryLimit;
             if (settings.BackgroundUpdateEnabled && settings.BackgroundUpdateInterval == default(TimeSpan))
                 settings.BackgroundUpdateInterval = TimeSpan.FromMilliseconds(Settings.DefaultBackgroundUpdateIntervalMilliseconds);
+        }
+
+        private void InitializeProvidsers()
+        {
+            providers = new IAddressesProvider[] {
+                new BlutmagieProvider(settings.BlutmagieCsvFileUrl, settings.ProviderRetryLimit),
+                new TorProjectExitAddressesProvider()
+            };
         }
 
         private void StartBackgroundUpdateProcess()

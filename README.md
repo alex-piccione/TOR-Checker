@@ -1,11 +1,16 @@
-# TOR Checker
+# Tor Checker
 
 Check if an IP is a TOR exit node.
 
 It use the updated list from **blutmagie.de**.
 
-Another list is here: https://check.torproject.org/exit-addresses.
+Another list is here: https://check.torproject.org/exit-addresses.  
 
+## Tor documentation
+
+URL: https://www.torproject.org/docs/faq-abuse.html.en#Bans  
+Tor exit relay list: https://check.torproject.org/cgi-bin/TorBulkExitList.py  
+DNS-based list you can query: https://www.torproject.org/projects/tordnsel.html.en  
 
 
 ## Usage

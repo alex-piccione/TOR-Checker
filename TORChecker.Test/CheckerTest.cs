@@ -18,11 +18,11 @@ namespace TorChecker.Test
         {
             var settings = new TorChecker.Settings();
             if(ipListCsvUrl != null)
-                settings.IPListCsvFileUrl = ipListCsvUrl;
+                settings.BlutmagieCsvFileUrl = ipListCsvUrl;
                         
             var checker = new TorChecker.Checker(settings);
 
-            var ipAddress = GetIpAddressFromList(TorChecker.Settings.DefaultIPListCsvUrl);
+            var ipAddress = GetIpAddressFromList(TorChecker.Settings.DefaultBlutmagieCsvFileUrl);
 
             // execute
             var result = checker.IsUsingTor(ipAddress);
@@ -35,7 +35,7 @@ namespace TorChecker.Test
         {
             var ipAddress = "1.1.1.1";
             var settings = new TorChecker.Settings();
-            settings.IPListCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
+            settings.BlutmagieCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
 
             // execute
             var checker = new TorChecker.Checker(settings);

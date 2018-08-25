@@ -17,6 +17,7 @@ namespace TorChecker.Providers
         public BlutmagieProvider(string blutmagieUrl, int retryLimit) {
             this.blutmagieUrl = blutmagieUrl;
             this.retryLimit = retryLimit;
+
             if (retryLimit <= 0)
                 throw new ArgumentOutOfRangeException(nameof(retryLimit), retryLimit, "RetryLimit must me greater than zero.");
         }
@@ -27,7 +28,7 @@ namespace TorChecker.Providers
         public async Task<HashSet<string>> ListIpAsync()
         {
             string csvData = null;
-            Exception latException = null;
+            Exception lastException = null;
 
             int retry = 0;
             while (csvData == null && retry++ < retryLimit)
@@ -38,12 +39,12 @@ namespace TorChecker.Providers
                 }
                 catch (Exception exc)
                 {
-                    latException = exc;
+                    lastException = exc;
                 }
             }
 
-            if (csvData == null && latException != null)
-                throw latException;
+            if (csvData == null && lastException != null)
+                throw lastException;
 
             var ipList = new HashSet<string>();
 

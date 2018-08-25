@@ -6,7 +6,7 @@ using TorChecker.Test.Unit_Tests.Mocks;
 
 namespace TorChecker.Test.Unit_Tests
 {
-    [TestFixture]
+    [TestFixture, Category("Unit_tests")]
     public class CheckerTest
     {
         [Test]

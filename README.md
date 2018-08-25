@@ -1,10 +1,9 @@
 # Tor Checker
 
-Check if an IP is a TOR exit node.
+Check if an IP is a TOR exit addresses.
 
-It use the updated list from **blutmagie.de**.
+It uses the updated list from **blutmagie.de** abd **TorProject.org**..
 
-Another list is here: https://check.torproject.org/exit-addresses.  
 
 ## Tor documentation
 

@@ -14,37 +14,42 @@ namespace TorChecker
     {
         private Settings settings;
         private HashSet<string> ipList;
-        private IEnumerable<IAddressesProvider> providers;
+        
         private System.Timers.Timer timer;
         private object updateLock = new object();
+
+        /// <summary>
+        /// Provider of the IP lists.
+        /// </summary>
+        public IEnumerable<IAddressesProvider> Providers { get; set; }
 
         /// <summary>
         /// Last successfull update.
         /// </summary>
         public DateTime LastUpdate { get; set; }
 
-
-        public Checker()
+        /// <summary>
+        /// Create the Checker with the default serttings values and the default providers.
+        /// </summary>
+        public Checker() :this(new Settings())
         {
-            settings = new Settings();
-
-            InitializeProvidsers();
+           
         }
 
 
         public Checker(Settings settings)
         {
-            this.settings = settings;
+            this.settings = settings;           
 
             VerifySettings(settings);
 
+            InitializeProvidsers();
+
             if (settings.BackgroundUpdateEnabled)
                 StartBackgroundUpdateProcess();
-
-            InitializeProvidsers();
         }
 
-
+  
 
         public bool IsUsingTor(string ipAddress)
         {
@@ -68,7 +73,7 @@ namespace TorChecker
 
         private void InitializeProvidsers()
         {
-            providers = new IAddressesProvider[] {
+            Providers = new IAddressesProvider[] {
                 new BlutmagieProvider(settings.BlutmagieCsvFileUrl, settings.ProviderRetryLimit),
                 new TorProjectExitAddressesProvider()
             };
@@ -100,7 +105,7 @@ namespace TorChecker
             ipList = new HashSet<string>();
 
             var tasks = new List<Task<HashSet<string>>>();
-            foreach (var provider in providers)
+            foreach (var provider in Providers)
                 tasks.Add(Task.Run(() => provider.ListIpAsync()));
 
             var continuation = Task.WhenAll(tasks);

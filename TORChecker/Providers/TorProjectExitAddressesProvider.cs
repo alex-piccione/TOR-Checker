@@ -8,12 +8,6 @@ namespace TorChecker.Providers
     {
         public string Name => "TorProjectExitAddresses";
 
-        public HashSet<string> ListIp()
-        {
-            //throw new NotImplementedException();
-            return new HashSet<string>();
-        }
-
         public Task<HashSet<string>> ListIpAsync()
         {
             //throw new NotImplementedException();

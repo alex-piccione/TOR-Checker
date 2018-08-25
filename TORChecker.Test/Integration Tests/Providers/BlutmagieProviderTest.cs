@@ -11,7 +11,6 @@ namespace TorChecker.Test.Unit_Tests.Providers
     public  class BlutmagieProviderTest
     {
 
-
         [Test]
         public void ListIpAsync__should__return_a_not_empty_list() {
 

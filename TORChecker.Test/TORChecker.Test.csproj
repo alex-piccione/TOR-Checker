@@ -19,8 +19,4 @@
     <ProjectReference Include="..\TORChecker\TORChecker.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Unit Tests\" />
-  </ItemGroup>
-
 </Project>

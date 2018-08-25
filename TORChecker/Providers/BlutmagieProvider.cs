@@ -17,11 +17,12 @@ namespace TorChecker.Providers
         public BlutmagieProvider(string blutmagieUrl, int retryLimit) {
             this.blutmagieUrl = blutmagieUrl;
             this.retryLimit = retryLimit;
+            if (retryLimit <= 0)
+                throw new ArgumentOutOfRangeException(nameof(retryLimit), retryLimit, "RetryLimit must me greater than zero.");
         }
+
         public string Name => "Blutmagie";
 
-
-        public HashSet<string> ListIp() => ListIpAsync().Result;
 
         public async Task<HashSet<string>> ListIpAsync()
         {

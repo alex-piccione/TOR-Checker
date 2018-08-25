@@ -11,6 +11,8 @@ Another list is here: https://check.torproject.org/exit-addresses.
 URL: https://www.torproject.org/docs/faq-abuse.html.en#Bans  
 Tor exit relay list: https://check.torproject.org/cgi-bin/TorBulkExitList.py  
 DNS-based list you can query: https://www.torproject.org/projects/tordnsel.html.en  
+  
+The first link actually does not provide any list, but in that page there is a link to this: https://check.torproject.org/exit-addresses.  
 
 
 ## Usage

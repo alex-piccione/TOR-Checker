@@ -4,8 +4,9 @@ namespace TorChecker
 {
     public class Settings
     {
-        public const string DefaultIPListCsvUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
-        public const ushort DefaultLoadCsvRetry = 5;
+        public const string DefaultBlutmagieCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
+        public const string DefaultTorProjectExitAddressesUrl = "https://check.torproject.org/exit-addresses";
+        public const ushort DefaultProviderRetryLimit = 5;
         public const uint DefaultBackgroundUpdateIntervalMilliseconds = 1000 * 60 * 10; // 10 minutes
 
   
@@ -17,13 +18,18 @@ namespace TorChecker
         /// URL of the CSV file with IP list.
         /// Default: "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv".
         /// </summary>
-        public string IPListCsvFileUrl { get; set; }
+        public string BlutmagieCsvFileUrl { get; set; }
 
         /// <summary>
-        /// Number of retries of loading the CSV file.
+        /// Exit addresses provided by Tor Project.
+        /// </summary>
+        public string TorProjectExitAddressesUrl { get; set; }
+
+        /// <summary>
+        /// MAx number of retries of every provider for retrieving the IP list.
         /// Default: 5
         /// </summary>
-        public ushort LoadCsvRetry { get; set; }
+        public ushort ProviderRetryLimit { get; set; }
 
         /// <summary>
         /// Specify if a background update repeated process should be run.

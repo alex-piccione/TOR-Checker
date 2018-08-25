@@ -1,45 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
+
 using Flurl.Http;
+using TorChecker.Providers;
 
 namespace TorChecker
 {
     public class Checker : IChecker
     {
         private Settings settings;
-
         private HashSet<string> ipList;
-        private Timer timer;
-        private object upateLock = new object();
+        
+        private System.Timers.Timer timer;
+        private object updateLock = new object();
+
+        /// <summary>
+        /// Provider of the IP lists.
+        /// </summary>
+        public IEnumerable<IAddressesProvider> Providers { get; set; }
 
         /// <summary>
         /// Last successfull update.
         /// </summary>
         public DateTime LastUpdate { get; set; }
 
-
-        public Checker()
+        /// <summary>
+        /// Create the Checker with the default serttings values and the default providers.
+        /// </summary>
+        public Checker() :this(new Settings())
         {
-            this.settings = new Settings();
+           
         }
+
 
         public Checker(Settings settings)
         {
-            this.settings = settings;
+            this.settings = settings;           
 
             VerifySettings(settings);
+
+            InitializeProvidsers();
 
             if (settings.BackgroundUpdateEnabled)
                 StartBackgroundUpdateProcess();
         }
 
+  
 
         public bool IsUsingTor(string ipAddress)
         {
             if (ipList == null)
-                lock (upateLock)
+                lock (updateLock)
                 {
                     LoadIPLIst();
                 }
@@ -50,10 +65,19 @@ namespace TorChecker
 
         private void VerifySettings(Settings settings)
         {
-            if (settings.IPListCsvFileUrl == null) settings.IPListCsvFileUrl = Settings.DefaultIPListCsvUrl;
-            if (settings.LoadCsvRetry == 0) settings.LoadCsvRetry = Settings.DefaultLoadCsvRetry;
+            if (settings.BlutmagieCsvFileUrl == null) settings.BlutmagieCsvFileUrl = Settings.DefaultBlutmagieCsvFileUrl;
+            if (settings.TorProjectExitAddressesUrl == null) settings.TorProjectExitAddressesUrl = Settings.DefaultTorProjectExitAddressesUrl;
+            if (settings.ProviderRetryLimit == 0) settings.ProviderRetryLimit = Settings.DefaultProviderRetryLimit;
             if (settings.BackgroundUpdateEnabled && settings.BackgroundUpdateInterval == default(TimeSpan))
                 settings.BackgroundUpdateInterval = TimeSpan.FromMilliseconds(Settings.DefaultBackgroundUpdateIntervalMilliseconds);
+        }
+
+        private void InitializeProvidsers()
+        {
+            Providers = new IAddressesProvider[] {
+                new BlutmagieProvider(settings.BlutmagieCsvFileUrl, settings.ProviderRetryLimit),
+                new TorProjectProvider(settings.TorProjectExitAddressesUrl, settings.ProviderRetryLimit)
+            };
         }
 
         private void StartBackgroundUpdateProcess()
@@ -66,7 +90,7 @@ namespace TorChecker
 
         private void RunBackgroundUpdate(object sender, ElapsedEventArgs e)
         {
-            lock (upateLock)
+            lock (updateLock)
             {
                 try
                 {
@@ -75,45 +99,41 @@ namespace TorChecker
                 catch { }
             }
         }
+                             
 
         private void LoadIPLIst()
         {
             ipList = new HashSet<string>();
 
-            string csvData = null;
-            Exception latException = null;
+            var tasks = new List<Task<HashSet<string>>>();
+            foreach (var provider in Providers)
+                tasks.Add(Task.Run(() => provider.ListIpAsync()));
 
-            int retry = 0;
-            while (csvData == null && retry++ < settings.LoadCsvRetry)
+            var continuation = Task.WhenAll(tasks);
+
+            try {
+                continuation.Wait();
+            }
+            catch (AggregateException exc) {
+                throw exc.GetBaseException();
+            }
+
+
+            if (continuation.Status == TaskStatus.RanToCompletion)
+                foreach (var result in continuation.Result)
+                    ipList.UnionWith(result);
+            else
             {
-                try
-                {
-                    csvData = settings.IPListCsvFileUrl.GetAsync().ReceiveString().Result;
-                }
-                catch (Exception exc)
-                {
-                    latException = exc;
-                }
-            }
-            
-            if (csvData == null && latException != null)
-                throw latException;
+                // todo: get the provider Name
+                var errors = from t in tasks
+                             where t.Status != TaskStatus.RanToCompletion
+                             select $"Status: {t.Status}, Error: {t.Exception}";
 
-            using (var reader = new StringReader(csvData)) { 
-                var read = true;
-                while (read) {
-                    var ip = reader.ReadLine();
-                    if (ip == null)
-                        read = false;
-                    else
-                        ipList.Add(ip);
-                }
+                throw new Exception(string.Join(" ", errors));
             }
-
-            if (ipList.Count == 0)
-                throw new Exception("Fail to load or process CSV data.");
 
             LastUpdate = DateTime.UtcNow;
         }
+
     }
 }

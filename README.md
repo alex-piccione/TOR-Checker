@@ -1,8 +1,8 @@
 # Tor Checker
 
-Check if an IP is a TOR exit addresses.
+Check if an IP is a Tor exit addresses.
 
-It uses the updated list from **blutmagie.de** abd **TorProject.org**..
+It uses the updated list from **blutmagie.de** and **TorProject.org**..
 
 
 ## Tor documentation

@@ -64,8 +64,7 @@ namespace TorChecker
 
 
         private void VerifySettings(Settings settings)
-        {
-            if (settings.BlutmagieCsvFileUrl == null) settings.BlutmagieCsvFileUrl = Settings.DefaultBlutmagieCsvFileUrl;
+        {            
             if (settings.TorProjectExitAddressesUrl == null) settings.TorProjectExitAddressesUrl = Settings.DefaultTorProjectExitAddressesUrl;
             if (settings.ProviderRetryLimit == 0) settings.ProviderRetryLimit = Settings.DefaultProviderRetryLimit;
             if (settings.BackgroundUpdateEnabled && settings.BackgroundUpdateInterval == default(TimeSpan))
@@ -75,7 +74,6 @@ namespace TorChecker
         private void InitializeProvidsers()
         {
             Providers = new IAddressesProvider[] {
-                new BlutmagieProvider(settings.BlutmagieCsvFileUrl, settings.ProviderRetryLimit),
                 new TorProjectProvider(settings.TorProjectExitAddressesUrl, settings.ProviderRetryLimit)
             };
         }

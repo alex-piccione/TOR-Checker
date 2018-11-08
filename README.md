@@ -2,7 +2,13 @@
 
 Check if an IP is a TOR exit addresses.
 
-It uses the updated list from **blutmagie.de** abd **TorProject.org**..
+It uses the updated list from **blutmagie.de** abd **TorProject.org**.  
+
+08/11/2018  
+http://torstatus.blutmagie.de is no more available.  On the website there is this message:
+  
+  Hello world! I decided to discontinue my Tor Network Status service at 11/06/18.  
+  Olaf Selke
 
 
 ## Tor documentation

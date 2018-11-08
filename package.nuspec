@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>TORChecker</id>
-		<version>0.1</version>
+		<id>Tor.Checker</id>
+		<version>0.6</version>
 		<title>TOR Checker</title>
 		<authors>Alessandro Piccione</authors>
 		<owners>Alessandro Piccione</owners>

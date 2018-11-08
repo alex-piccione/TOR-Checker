@@ -4,7 +4,7 @@ namespace TorChecker
 {
     public class Settings
     {
-        public const string DefaultBlutmagieCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
+        //public const string DefaultBlutmagieCsvFileUrl = "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv";
         public const string DefaultTorProjectExitAddressesUrl = "https://check.torproject.org/exit-addresses";
         public const ushort DefaultProviderRetryLimit = 5;
         public const uint DefaultBackgroundUpdateIntervalMilliseconds = 1000 * 60 * 10; // 10 minutes
@@ -18,7 +18,7 @@ namespace TorChecker
         /// URL of the CSV file with IP list.
         /// Default: "https://torstatus.blutmagie.de/ip_list_exit.php/Tor_ip_list_EXIT.csv".
         /// </summary>
-        public string BlutmagieCsvFileUrl { get; set; }
+        //public string BlutmagieCsvFileUrl { get; set; }
 
         /// <summary>
         /// Exit addresses provided by Tor Project.

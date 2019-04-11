@@ -9,6 +9,8 @@ namespace TorChecker
         public const ushort DefaultProviderRetryLimit = 5;
         public const uint DefaultBackgroundUpdateIntervalMilliseconds = 1000 * 60 * 10; // 10 minutes
 
+        //https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=1.1.1.1
+
   
         public Settings () {
             BackgroundUpdateEnabled = true;
